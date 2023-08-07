@@ -56,3 +56,12 @@ func IsREADME(path string) bool {
 	}
 	return compareFileName(README.Pattern, filepath.Base(path))
 }
+
+// IsLICENSE determine if it is a LICENSE document
+func IsLICENSE(path string) bool {
+	err := isNormalArguments(path)
+	if err != nil {
+		return false
+	}
+	return compareFileName(LICENSE.Pattern, filepath.Base(path))
+}
