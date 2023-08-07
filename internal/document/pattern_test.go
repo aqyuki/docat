@@ -228,3 +228,43 @@ func TestIsREADME(t *testing.T) {
 		})
 	}
 }
+
+func TestIsLICENSE(t *testing.T) {
+	type args struct {
+		path string
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "Same case",
+			args: args{
+				path: GenerateFilePath(t, "LICENSE.md"),
+			},
+			want: true,
+		},
+		{
+			name: "Same case",
+			args: args{
+				path: GenerateFilePath(t, "LICENSE"),
+			},
+			want: true,
+		},
+		{
+			name: "Same case",
+			args: args{
+				path: GenerateFilePath(t, "README.md"),
+			},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := document.IsLICENSE(tt.args.path); got != tt.want {
+				t.Errorf("IsLICENSE() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
