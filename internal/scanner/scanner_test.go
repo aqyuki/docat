@@ -14,7 +14,6 @@ func Test_listAllFiles(t *testing.T) {
 		fileCount = 4
 	)
 	_, currentFile, _, _ := runtime.Caller(0)
-	t.Logf("%+v\n", currentFile)
 	testDir := filepath.Join(filepath.Dir(currentFile), "testdata")
 
 	list := scanner.ListAllFiles(testDir)
