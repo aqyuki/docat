@@ -348,3 +348,43 @@ func TestIsCONTRIBUTING(t *testing.T) {
 		})
 	}
 }
+
+func TestIsCONTRIBUTOR(t *testing.T) {
+	type args struct {
+		path string
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "Same case",
+			args: args{
+				path: GenerateFilePath(t, "CONTRIBUTOR.md"),
+			},
+			want: true,
+		},
+		{
+			name: "Same case",
+			args: args{
+				path: GenerateFilePath(t, "CONTRIBUTOR"),
+			},
+			want: true,
+		},
+		{
+			name: "Same case",
+			args: args{
+				path: GenerateFilePath(t, "CONTRIBUTING.md"),
+			},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := document.IsCONTRIBUTOR(tt.args.path); got != tt.want {
+				t.Errorf("IsCONTRIBUTOR() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
