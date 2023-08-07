@@ -1,7 +1,6 @@
 package document
 
 import (
-	"path/filepath"
 	"strings"
 )
 
@@ -27,6 +26,13 @@ var (
 	CONTRIBUTOR  = CreatePattern("CONTRIBUTOR")
 )
 
+func (p *DocumentPat) Match(path string) bool {
+	if isNormalArguments(path) != nil {
+		return false
+	}
+	return compareFileName(p.Pattern, path)
+}
+
 // isNormalArguments determine if the argument can be processed normally.
 func isNormalArguments(path string) error {
 	if path == "" {
@@ -46,49 +52,4 @@ func CreatePattern(pattern string) *DocumentPat {
 	return &DocumentPat{
 		Pattern: pattern,
 	}
-}
-
-// IsREADME determine if it is a README document.
-func IsREADME(path string) bool {
-	err := isNormalArguments(path)
-	if err != nil {
-		return false
-	}
-	return compareFileName(README.Pattern, filepath.Base(path))
-}
-
-// IsLICENSE determine if it is a LICENSE document
-func IsLICENSE(path string) bool {
-	err := isNormalArguments(path)
-	if err != nil {
-		return false
-	}
-	return compareFileName(LICENSE.Pattern, filepath.Base(path))
-}
-
-// IsCHANGELOG determine if it is a CHANGELOG document
-func IsCHANGELOG(path string) bool {
-	err := isNormalArguments(path)
-	if err != nil {
-		return false
-	}
-	return compareFileName(CHANGELOG.Pattern, filepath.Base(path))
-}
-
-// IsCONTRIBUTING determine if it is a CONTRIBUTING document
-func IsCONTRIBUTING(path string) bool {
-	err := isNormalArguments(path)
-	if err != nil {
-		return false
-	}
-	return compareFileName(CONTRIBUTING.Pattern, filepath.Base(path))
-}
-
-// IsCONTRIBUTOR determine if it is a CONTRIBUTOR document
-func IsCONTRIBUTOR(path string) bool {
-	err := isNormalArguments(path)
-	if err != nil {
-		return false
-	}
-	return compareFileName(CONTRIBUTOR.Pattern, filepath.Base(path))
 }
