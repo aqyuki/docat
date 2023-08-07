@@ -8,6 +8,11 @@ import (
 	"github.com/aqyuki/docat/internal/document"
 )
 
+func GenerateFilePath(t *testing.T, filename string) string {
+	t.Helper()
+	return filepath.Join("project", filename)
+}
+
 func TestCreatePattern(t *testing.T) {
 	type args struct {
 		pattern string
@@ -179,6 +184,46 @@ func Test_compareFileName(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := document.CompareFileName(tt.args.base, tt.args.name); got != tt.want {
 				t.Errorf("Case %v got = %v, want %v", tt.name, got, tt.want)
+			}
+		})
+	}
+}
+
+func TestIsREADME(t *testing.T) {
+	type args struct {
+		path string
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "Same case",
+			args: args{
+				path: GenerateFilePath(t, "README.md"),
+			},
+			want: true,
+		},
+		{
+			name: "Same case",
+			args: args{
+				path: GenerateFilePath(t, "README"),
+			},
+			want: true,
+		},
+		{
+			name: "Same case",
+			args: args{
+				path: GenerateFilePath(t, "CHANGELOG.md"),
+			},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := document.IsREADME(tt.args.path); got != tt.want {
+				t.Errorf("IsREADME() = %v, want %v", got, tt.want)
 			}
 		})
 	}
