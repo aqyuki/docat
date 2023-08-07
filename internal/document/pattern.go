@@ -7,11 +7,19 @@ type (
 )
 
 var (
-	README = CreatePattern("README")
-	LICENSE = CreatePattern("LICENSE")
-	CHANGELOG = CreatePattern("CHANGELOG")
+	PatternedDocuments = map[string]*DocumentPat{
+		"README":       README,
+		"LICENSE":      LICENSE,
+		"CHANGELOG":    CHANGELOG,
+		"CONTRIBUTING": CONTRIBUTING,
+		"CONTRIBUTOR":  CONTRIBUTOR,
+	}
+
+	README       = CreatePattern("README")
+	LICENSE      = CreatePattern("LICENSE")
+	CHANGELOG    = CreatePattern("CHANGELOG")
 	CONTRIBUTING = CreatePattern("CONTRIBUTING")
-	CONTRIBUTOR = CreatePattern("CONTRIBUTOR")
+	CONTRIBUTOR  = CreatePattern("CONTRIBUTOR")
 )
 
 func CreatePattern(pattern string) *DocumentPat {
