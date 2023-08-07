@@ -9,9 +9,9 @@ import (
 )
 
 var listCommand = &cobra.Command{
-	Use: "list",
+	Use:   "list",
 	Short: "",
-	Long: "",
+	Long:  "",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		fmt.Println("docat list")
 
@@ -19,7 +19,7 @@ var listCommand = &cobra.Command{
 			return fmt.Errorf("too many args")
 		}
 
-		targetDir,err := os.Getwd()
+		targetDir, err := os.Getwd()
 		if err != nil {
 			return err
 		}
@@ -36,6 +36,6 @@ var listCommand = &cobra.Command{
 	},
 }
 
-func init(){
+func init() {
 	rootCmd.AddCommand(listCommand)
 }
