@@ -63,7 +63,7 @@ func TestInvalidArgument_Error(t *testing.T) {
 		{
 			name: "Invalid Argument Error Check",
 			e:    &document.InvalidArgument{},
-			want: "Invalid argument",
+			want: "invalid argument",
 		},
 	}
 	for _, tt := range tests {
