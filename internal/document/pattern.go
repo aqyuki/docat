@@ -1,6 +1,9 @@
 package document
 
-import "strings"
+import (
+	"path/filepath"
+	"strings"
+)
 
 type (
 	DocumentPat struct {
@@ -43,4 +46,13 @@ func CreatePattern(pattern string) *DocumentPat {
 	return &DocumentPat{
 		Pattern: pattern,
 	}
+}
+
+// IsREADME determine if it is a README document.
+func IsREADME(path string) bool {
+	err := isNormalArguments(path)
+	if err != nil {
+		return false
+	}
+	return compareFileName(README.Pattern, filepath.Base(path))
 }
