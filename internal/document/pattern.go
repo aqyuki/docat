@@ -22,6 +22,7 @@ var (
 	CONTRIBUTOR  = CreatePattern("CONTRIBUTOR")
 )
 
+// CreatePattern create new DocumentPat instance
 func CreatePattern(pattern string) *DocumentPat {
 	return &DocumentPat{
 		Pattern: pattern,
