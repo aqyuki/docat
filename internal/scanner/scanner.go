@@ -8,7 +8,7 @@ import (
 
 // listAllFile return list of add file in root directory
 func listAllFiles(root string) []string {
-	list := make([]string,0)
+	list := make([]string, 0)
 
 	err := filepath.Walk(root, func(path string, info fs.FileInfo, err error) error {
 		if err != nil {
