@@ -74,3 +74,12 @@ func IsCHANGELOG(path string) bool {
 	}
 	return compareFileName(CHANGELOG.Pattern, filepath.Base(path))
 }
+
+// IsCONTRIBUTING determine if it is a CONTRIBUTING document
+func IsCONTRIBUTING(path string) bool {
+	err := isNormalArguments(path)
+	if err != nil {
+		return false
+	}
+	return compareFileName(CONTRIBUTING.Pattern, filepath.Base(path))
+}
