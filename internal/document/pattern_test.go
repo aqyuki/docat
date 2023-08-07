@@ -189,201 +189,45 @@ func Test_compareFileName(t *testing.T) {
 	}
 }
 
-func TestIsREADME(t *testing.T) {
+func TestDocumentPat_Match(t *testing.T) {
 	type args struct {
 		path string
 	}
 	tests := []struct {
 		name string
+		p    *document.DocumentPat
 		args args
 		want bool
 	}{
 		{
-			name: "Same case",
+			name: "OK without extension",
+			p:    document.CreatePattern("README"),
 			args: args{
-				path: GenerateFilePath(t, "README.md"),
+				GenerateFilePath(t, "README"),
 			},
 			want: true,
 		},
 		{
-			name: "Same case",
+			name: "OK with extension",
+			p:    document.CreatePattern("README"),
 			args: args{
-				path: GenerateFilePath(t, "README"),
+				GenerateFilePath(t, "README.md"),
 			},
 			want: true,
 		},
 		{
-			name: "Same case",
+			name: "No match",
+			p:    document.CreatePattern("README"),
 			args: args{
-				path: GenerateFilePath(t, "CHANGELOG.md"),
+				GenerateFilePath(t, "CHANGELOG"),
 			},
 			want: false,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := document.IsREADME(tt.args.path); got != tt.want {
-				t.Errorf("IsREADME() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func TestIsLICENSE(t *testing.T) {
-	type args struct {
-		path string
-	}
-	tests := []struct {
-		name string
-		args args
-		want bool
-	}{
-		{
-			name: "Same case",
-			args: args{
-				path: GenerateFilePath(t, "LICENSE.md"),
-			},
-			want: true,
-		},
-		{
-			name: "Same case",
-			args: args{
-				path: GenerateFilePath(t, "LICENSE"),
-			},
-			want: true,
-		},
-		{
-			name: "Same case",
-			args: args{
-				path: GenerateFilePath(t, "README.md"),
-			},
-			want: false,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := document.IsLICENSE(tt.args.path); got != tt.want {
-				t.Errorf("IsLICENSE() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func TestIsCHANGELOG(t *testing.T) {
-	type args struct {
-		path string
-	}
-	tests := []struct {
-		name string
-		args args
-		want bool
-	}{
-		{
-			name: "Same case",
-			args: args{
-				path: GenerateFilePath(t, "CHANGELOG.md"),
-			},
-			want: true,
-		},
-		{
-			name: "Same case",
-			args: args{
-				path: GenerateFilePath(t, "CHANGELOG"),
-			},
-			want: true,
-		},
-		{
-			name: "Same case",
-			args: args{
-				path: GenerateFilePath(t, "LICENSE.md"),
-			},
-			want: false,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := document.IsCHANGELOG(tt.args.path); got != tt.want {
-				t.Errorf("IsCHANGELOG() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func TestIsCONTRIBUTING(t *testing.T) {
-	type args struct {
-		path string
-	}
-	tests := []struct {
-		name string
-		args args
-		want bool
-	}{
-		{
-			name: "Same case",
-			args: args{
-				path: GenerateFilePath(t, "CONTRIBUTING.md"),
-			},
-			want: true,
-		},
-		{
-			name: "Same case",
-			args: args{
-				path: GenerateFilePath(t, "CONTRIBUTING"),
-			},
-			want: true,
-		},
-		{
-			name: "Same case",
-			args: args{
-				path: GenerateFilePath(t, "CHANGELOG.md"),
-			},
-			want: false,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := document.IsCONTRIBUTING(tt.args.path); got != tt.want {
-				t.Errorf("IsCONTRIBUTING() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func TestIsCONTRIBUTOR(t *testing.T) {
-	type args struct {
-		path string
-	}
-	tests := []struct {
-		name string
-		args args
-		want bool
-	}{
-		{
-			name: "Same case",
-			args: args{
-				path: GenerateFilePath(t, "CONTRIBUTOR.md"),
-			},
-			want: true,
-		},
-		{
-			name: "Same case",
-			args: args{
-				path: GenerateFilePath(t, "CONTRIBUTOR"),
-			},
-			want: true,
-		},
-		{
-			name: "Same case",
-			args: args{
-				path: GenerateFilePath(t, "CONTRIBUTING.md"),
-			},
-			want: false,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := document.IsCONTRIBUTOR(tt.args.path); got != tt.want {
-				t.Errorf("IsCONTRIBUTOR() = %v, want %v", got, tt.want)
+			if got := tt.p.Match(tt.args.path); got != tt.want {
+				t.Errorf("DocumentPat.Match() = %v, want %v", got, tt.want)
 			}
 		})
 	}
