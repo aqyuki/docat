@@ -65,3 +65,12 @@ func IsLICENSE(path string) bool {
 	}
 	return compareFileName(LICENSE.Pattern, filepath.Base(path))
 }
+
+// IsCHANGELOG determine if it is a CHANGELOG document
+func IsCHANGELOG(path string) bool {
+	err := isNormalArguments(path)
+	if err != nil {
+		return false
+	}
+	return compareFileName(CHANGELOG.Pattern, filepath.Base(path))
+}
