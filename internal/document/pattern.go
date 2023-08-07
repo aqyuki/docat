@@ -1,5 +1,7 @@
 package document
 
+import "strings"
+
 type (
 	DocumentPat struct {
 		Pattern string
@@ -21,6 +23,20 @@ var (
 	CONTRIBUTING = CreatePattern("CONTRIBUTING")
 	CONTRIBUTOR  = CreatePattern("CONTRIBUTOR")
 )
+
+// isNormalArguments determine if the argument can be processed normally.
+func isNormalArguments(path string) error {
+	if path == "" {
+		return &InvalidArgument{}
+	}
+	return nil
+}
+
+func compareFileName(base string, name string) bool {
+	upperFileName := strings.ToUpper(name)
+	filename := strings.Split(upperFileName, ".")
+	return strings.HasSuffix(filename[0], base)
+}
 
 // CreatePattern create new DocumentPat instance
 func CreatePattern(pattern string) *DocumentPat {
