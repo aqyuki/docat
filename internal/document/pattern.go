@@ -83,3 +83,12 @@ func IsCONTRIBUTING(path string) bool {
 	}
 	return compareFileName(CONTRIBUTING.Pattern, filepath.Base(path))
 }
+
+// IsCONTRIBUTOR determine if it is a CONTRIBUTOR document
+func IsCONTRIBUTOR(path string) bool {
+	err := isNormalArguments(path)
+	if err != nil {
+		return false
+	}
+	return compareFileName(CONTRIBUTOR.Pattern, filepath.Base(path))
+}
