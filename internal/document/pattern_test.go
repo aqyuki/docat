@@ -308,3 +308,43 @@ func TestIsCHANGELOG(t *testing.T) {
 		})
 	}
 }
+
+func TestIsCONTRIBUTING(t *testing.T) {
+	type args struct {
+		path string
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "Same case",
+			args: args{
+				path: GenerateFilePath(t, "CONTRIBUTING.md"),
+			},
+			want: true,
+		},
+		{
+			name: "Same case",
+			args: args{
+				path: GenerateFilePath(t, "CONTRIBUTING"),
+			},
+			want: true,
+		},
+		{
+			name: "Same case",
+			args: args{
+				path: GenerateFilePath(t, "CHANGELOG.md"),
+			},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := document.IsCONTRIBUTING(tt.args.path); got != tt.want {
+				t.Errorf("IsCONTRIBUTING() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
