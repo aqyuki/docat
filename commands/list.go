@@ -11,7 +11,7 @@ import (
 
 var listCommand = &cobra.Command{
 	Use:   "list",
-	Short: "",
+	Short: "Lists the documents contained in the folder.",
 	Long:  "",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		fmt.Println("docat list")
