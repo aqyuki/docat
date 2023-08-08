@@ -62,6 +62,7 @@ CHECK_LOOP:
 	return items
 }
 
+// ShowDocumentList show detected documents in current directory
 func ShowDocumentList(path string) error {
 	exist, err := files.ExistDir(path)
 	if err != nil {
@@ -72,4 +73,16 @@ func ShowDocumentList(path string) error {
 	}
 	printer.PrintListNonSelectable(extractListItem(listAllFiles(path)))
 	return nil
+}
+
+// CreateDocumentList create detected documents in current directory
+func CreateDocumentList(path string) ([]string,error) {
+	exist, err := files.ExistDir(path)
+	if err != nil {
+		return nil,err
+	}
+	if !exist {
+		return nil,nil
+	}
+	return extractListItem(listAllFiles(path)),nil
 }
