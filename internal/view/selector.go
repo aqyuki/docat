@@ -64,12 +64,12 @@ func RunDocumentSelector() (tags.DocumentType, error) {
 	}
 }
 
-func RunFileSelector(files []string) (string, error){
-	listItems := make([]list.Item,0)
-	for _, item :=range files {
+func RunFileSelector(files []string) (string, error) {
+	listItems := make([]list.Item, 0)
+	for _, item := range files {
 		listItems = append(listItems, ls.ListItem(item))
 	}
-	l := list.New(listItems,ls.ItemDelegate{},ls.DefaultWidth,ls.ListHeight)
+	l := list.New(listItems, ls.ItemDelegate{}, ls.DefaultWidth, ls.ListHeight)
 
 	l.Title = "Please select the file whose contents you wish to review"
 
@@ -79,16 +79,16 @@ func RunFileSelector(files []string) (string, error){
 	l.Styles.PaginationStyle = ls.PaginationStyle
 	l.Styles.HelpStyle = ls.HelpStyle
 
-	model,err := tea.NewProgram(ls.ListModel{List: l}).Run()
+	model, err := tea.NewProgram(ls.ListModel{List: l}).Run()
 	if err != nil {
-		return "",err
+		return "", err
 	}
 
 	selected := ""
-	switch got:=model.(type) {
+	switch got := model.(type) {
 	case ls.ListModel:
 		selected = got.Choice
 	}
 
-	return selected,nil
+	return selected, nil
 }
