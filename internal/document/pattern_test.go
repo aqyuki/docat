@@ -225,7 +225,7 @@ func TestDocumentPat_Match(t *testing.T) {
 		},
 		{
 			name: "Empty Args",
-			p: document.CreatePattern("README"),
+			p:    document.CreatePattern("README"),
 			args: args{
 				"",
 			},
