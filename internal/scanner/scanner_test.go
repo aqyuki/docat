@@ -2,6 +2,7 @@ package scanner_test
 
 import (
 	"path/filepath"
+	"reflect"
 	"runtime"
 	"testing"
 
@@ -31,5 +32,43 @@ func Test_listAllFiles(t *testing.T) {
 		if !exist {
 			t.Errorf("A non-existent file was returned. got -> %+v\n", path)
 		}
+	}
+}
+
+func Test_extractListItem(t *testing.T) {
+	type args struct {
+		list []string
+	}
+	tests := []struct {
+		name string
+		args args
+		want []string
+	}{
+		{
+			name: "All match",
+			args: args{
+				list: []string{
+					filepath.Join("project", "README"),
+					filepath.Join("project", "LICENSE"),
+					filepath.Join("project", "CHANGELOG"),
+					filepath.Join("project", "CONTRIBUTING"),
+					filepath.Join("project", "CONTRIBUTOR"),
+				},
+			},
+			want: []string{
+				filepath.Join("project", "README"),
+				filepath.Join("project", "LICENSE"),
+				filepath.Join("project", "CHANGELOG"),
+				filepath.Join("project", "CONTRIBUTING"),
+				filepath.Join("project", "CONTRIBUTOR"),
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := scanner.ExtractListItem(tt.args.list); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("extractListItem() = %v, want %v", got, tt.want)
+			}
+		})
 	}
 }
