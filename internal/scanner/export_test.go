@@ -1,5 +1,6 @@
 package scanner
 
 var (
-	ListAllFiles = listAllFiles
+	ListAllFiles    = listAllFiles
+	ExtractListItem = extractListItem
 )
