@@ -5,6 +5,7 @@ import (
 	"io/fs"
 	"path/filepath"
 
+	"github.com/aqyuki/docat/internal/printer"
 	"github.com/aqyuki/goutil/files"
 )
 
@@ -30,18 +31,13 @@ func listAllFiles(root string) []string {
 }
 
 func ShowDocumentList(path string) error {
-	exist,err := files.ExistDir(path)
-
-	if err != nil{
+	exist, err := files.ExistDir(path)
+	if err != nil {
 		return nil
 	}
-	if !exist{
+	if !exist {
 		return nil
 	}
-
-	list := listAllFiles(path)
-	if len(list) < 1{
-		return nil
-	}
+	printer.PrintListNonSelectable(listAllFiles(path))
 	return nil
 }
