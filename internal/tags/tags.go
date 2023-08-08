@@ -5,7 +5,7 @@ type (
 )
 
 const (
-	NON		 DocumentType = -1
+	NON          DocumentType = -1
 	README       DocumentType = 0
 	LICENSE      DocumentType = 1
 	CHANGELOG    DocumentType = 2
