@@ -15,8 +15,8 @@ import (
 
 var catCommand = &cobra.Command{
 	Use:   "cat",
-	Short: "",
-	Long:  "",
+	Short: "Displays the contents of the selected file.",
+	Long:  "Displays the contents of the specified file. The available document formats are README, LICENSE, CHANGELOG, CONTRIBUTING, or CONTRIBUTOR. If there are multiple files of the same document format, a separate selector will be used to open a new file.",
 	RunE: func(cmd *cobra.Command, args []string) error {
 
 		if len(args) > 1 {

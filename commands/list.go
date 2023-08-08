@@ -11,8 +11,8 @@ import (
 
 var listCommand = &cobra.Command{
 	Use:   "list",
-	Short: "",
-	Long:  "",
+	Short: "Lists the documents contained in the folder.",
+	Long:  "Lists the documents contained in the folder. If the folder contains subfolders, the search is extended to the subfolders. The document formats displayed are README, LICENSE, CHANGELOG, CONTRIBUTING, or CONTRIBUTOR.",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		fmt.Println("docat list")
 
