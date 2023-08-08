@@ -26,7 +26,7 @@ var (
 	}
 )
 
-func RunDocumentSelector(files []string) (tags.DocumentType, error) {
+func RunDocumentSelector() (tags.DocumentType, error) {
 	l := list.New(documentSelectorListItem, ls.ItemDelegate{}, ls.DefaultWidth, ls.ListHeight)
 
 	l.Title = "Please specify documents to be dispersed"
