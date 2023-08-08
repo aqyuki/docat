@@ -8,10 +8,10 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use: "docat",
+	Use:   "docat",
 	Short: "Docat provides quick access to documents within a project.",
-	Long: "Docat provides quick access to documents within a project.",
-	RunE:func(cmd *cobra.Command, args []string) error {
+	Long:  "Docat provides quick access to documents within a project.",
+	RunE: func(cmd *cobra.Command, args []string) error {
 		fmt.Println("main command")
 		return nil
 	},
@@ -24,5 +24,5 @@ func Execute() {
 	}
 }
 
-func init(){
+func init() {
 }
