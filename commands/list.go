@@ -27,7 +27,7 @@ var listCommand = &cobra.Command{
 			targetDir = args[0]
 		}
 
-		err = scanner.ScanDocument(targetDir)
+		err = scanner.ShowDocumentList(targetDir)
 		if err != nil {
 			return err
 		}
