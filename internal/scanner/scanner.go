@@ -5,6 +5,7 @@ import (
 	"io/fs"
 	"path/filepath"
 
+	"github.com/aqyuki/docat/internal/document"
 	"github.com/aqyuki/docat/internal/printer"
 	"github.com/aqyuki/goutil/files"
 )
@@ -30,6 +31,37 @@ func listAllFiles(root string) []string {
 	return list
 }
 
+// extractListItem extracts only the documents to be displayed
+func extractListItem(list []string) []string {
+	items := make([]string, 0)
+CHECK_LOOP:
+	for _, item := range list {
+		if document.README.Match(item) {
+			items = append(items, item)
+			continue CHECK_LOOP
+		}
+
+		if document.LICENSE.Match(item) {
+			items = append(items, item)
+			continue CHECK_LOOP
+		}
+
+		if document.CHANGELOG.Match(item) {
+			items = append(items, item)
+			continue CHECK_LOOP
+		}
+		if document.CONTRIBUTING.Match(item) {
+			items = append(items, item)
+			continue CHECK_LOOP
+		}
+		if document.CONTRIBUTOR.Match(item) {
+			items = append(items, item)
+			continue CHECK_LOOP
+		}
+	}
+	return items
+}
+
 func ShowDocumentList(path string) error {
 	exist, err := files.ExistDir(path)
 	if err != nil {
@@ -38,6 +70,6 @@ func ShowDocumentList(path string) error {
 	if !exist {
 		return nil
 	}
-	printer.PrintListNonSelectable(listAllFiles(path))
+	printer.PrintListNonSelectable(extractListItem(listAllFiles(path)))
 	return nil
 }
