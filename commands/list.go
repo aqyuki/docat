@@ -3,6 +3,7 @@ package commands
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 
 	"github.com/aqyuki/docat/internal/scanner"
 	"github.com/spf13/cobra"
@@ -24,7 +25,11 @@ var listCommand = &cobra.Command{
 			return err
 		}
 		if len(args) == 1 {
-			targetDir = args[0]
+			dir,err := filepath.Abs(args[0])
+			if err != nil {
+				return err
+			}
+			targetDir = dir
 		}
 
 		err = scanner.ShowDocumentList(targetDir)
