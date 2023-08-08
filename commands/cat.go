@@ -15,7 +15,7 @@ import (
 
 var catCommand = &cobra.Command{
 	Use:   "cat",
-	Short: "",
+	Short: "Displays the contents of the selected file.",
 	Long:  "",
 	RunE: func(cmd *cobra.Command, args []string) error {
 
