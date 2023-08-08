@@ -3,14 +3,14 @@ package commands
 import "github.com/spf13/cobra"
 
 var catCommand = &cobra.Command{
-	Use:"cat",
+	Use:   "cat",
 	Short: "",
-	Long: "",
+	Long:  "",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		return nil
 	},
 }
 
-func init(){
+func init() {
 	rootCmd.AddCommand(catCommand)
 }

@@ -25,7 +25,7 @@ var listCommand = &cobra.Command{
 			return err
 		}
 		if len(args) == 1 {
-			dir,err := filepath.Abs(args[0])
+			dir, err := filepath.Abs(args[0])
 			if err != nil {
 				return err
 			}

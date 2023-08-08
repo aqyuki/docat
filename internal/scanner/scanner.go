@@ -76,13 +76,13 @@ func ShowDocumentList(path string) error {
 }
 
 // CreateDocumentList create detected documents in current directory
-func CreateDocumentList(path string) ([]string,error) {
+func CreateDocumentList(path string) ([]string, error) {
 	exist, err := files.ExistDir(path)
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
 	if !exist {
-		return nil,nil
+		return nil, nil
 	}
-	return extractListItem(listAllFiles(path)),nil
+	return extractListItem(listAllFiles(path)), nil
 }
