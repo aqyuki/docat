@@ -9,7 +9,7 @@ import (
 var listCommand = &cobra.Command{
 	Use:   "list",
 	Short: "Lists the documents contained in the folder.",
-	Long:  "Lists the documents contained in the folder. If the folder contains subfolders, the search is extended to the subfolders. The document formats displayed are README, LICENSE, CHANGELOG, CONTRIBUTING, or CONTRIBUTOR.",
+	Long:  "Lists the documents contained in the folder. If the folder contains subfolders, the search is extended to the subfolders. The document formats displayed are README, LICENSE, CHANGELOG, CONTRIBUTING, CONTRIBUTOR or CONTRIBUTE.",
 	RunE: func(cmd *cobra.Command, args []string) error {
 
 		targetDir, err := utils.TargetDirectoryParser(args)
