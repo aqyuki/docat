@@ -60,7 +60,7 @@ CHECK_LOOP:
 			items = append(items, item)
 			continue CHECK_LOOP
 		}
-		if document.CONTRIBUTE.Match(item){
+		if document.CONTRIBUTE.Match(item) {
 			items = append(items, item)
 			continue CHECK_LOOP
 		}
