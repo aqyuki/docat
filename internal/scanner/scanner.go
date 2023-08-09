@@ -82,7 +82,7 @@ func ShowDocumentList(path string) error {
 	if err != nil {
 		return err
 	}
-	printer.PrintListNonSelectable(files)
+	printer.ShowSimpleList(files)
 	return nil
 }
 
