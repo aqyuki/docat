@@ -2,7 +2,8 @@ package printer
 
 import "fmt"
 
-func PrintListNonSelectable(list []string) {
+// ShowSimpleList show dates with simple style
+func ShowSimpleList(list []string) {
 	if len(list) == 0 {
 		fmt.Printf("item no detected\n")
 	}
