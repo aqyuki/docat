@@ -72,6 +72,8 @@ func FetchPatternForTag(tag *tags.DocumentType) *DocumentPat {
 		pattern = CONTRIBUTING
 	case tags.CONTRIBUTOR:
 		pattern = CONTRIBUTOR
+	case tags.CONTRIBUTE:
+		pattern = CONTRIBUTE
 	case tags.NON:
 		pattern = nil
 	}
