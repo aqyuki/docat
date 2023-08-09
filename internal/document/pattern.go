@@ -2,6 +2,8 @@ package document
 
 import (
 	"strings"
+
+	"github.com/aqyuki/docat/internal/tags"
 )
 
 type (
@@ -52,4 +54,24 @@ func CreatePattern(pattern string) *DocumentPat {
 	return &DocumentPat{
 		Pattern: pattern,
 	}
+}
+
+// FetchPatternForTag fetch pattern fot tag
+func FetchPatternForTag(tag *tags.DocumentType) *DocumentPat {
+	var pattern *DocumentPat
+	switch *tag {
+	case tags.README:
+		pattern = README
+	case tags.LICENSE:
+		pattern = LICENSE
+	case tags.CHANGELOG:
+		pattern = CHANGELOG
+	case tags.CONTRIBUTING:
+		pattern = CONTRIBUTING
+	case tags.CONTRIBUTOR:
+		pattern = CONTRIBUTOR
+	case tags.NON:
+		pattern = nil
+	}
+	return pattern
 }
