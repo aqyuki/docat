@@ -53,6 +53,7 @@ func Test_extractListItem(t *testing.T) {
 					filepath.Join("project", "CHANGELOG"),
 					filepath.Join("project", "CONTRIBUTING"),
 					filepath.Join("project", "CONTRIBUTOR"),
+					filepath.Join("project","CONTRIBUTE"),
 				},
 			},
 			want: []string{
@@ -61,6 +62,7 @@ func Test_extractListItem(t *testing.T) {
 				filepath.Join("project", "CHANGELOG"),
 				filepath.Join("project", "CONTRIBUTING"),
 				filepath.Join("project", "CONTRIBUTOR"),
+				filepath.Join("project","CONTRIBUTE"),
 			},
 		},
 	}
