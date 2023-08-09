@@ -6,8 +6,8 @@ import (
 	"path/filepath"
 	"time"
 
+	"github.com/aqyuki/docat/internal/display"
 	"github.com/aqyuki/docat/internal/document"
-	"github.com/aqyuki/docat/internal/printer"
 	"github.com/aqyuki/goutil/files"
 	"github.com/briandowns/spinner"
 )
@@ -82,7 +82,7 @@ func ShowDocumentList(path string) error {
 	if err != nil {
 		return err
 	}
-	printer.ShowSimpleList(files)
+	display.ShowSimpleList(files)
 	return nil
 }
 
