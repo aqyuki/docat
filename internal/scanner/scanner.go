@@ -64,21 +64,8 @@ CHECK_LOOP:
 	return items
 }
 
-// ShowDocumentList show detected documents in current directory
-func ShowDocumentList(path string) error {
-	exist, err := files.ExistDir(path)
-	if err != nil {
-		return nil
-	}
-	if !exist {
-		return nil
-	}
-	printer.PrintListNonSelectable(extractListItem(listAllFiles(path)))
-	return nil
-}
-
-// CreateDocumentList create detected documents in current directory
-func CreateDocumentList(path string) ([]string, error) {
+// createDocumentList create detected documents in current directory
+func createDocumentList(path string) ([]string, error) {
 	exist, err := files.ExistDir(path)
 	if err != nil {
 		return nil, err
@@ -89,10 +76,21 @@ func CreateDocumentList(path string) ([]string, error) {
 	return extractListItem(listAllFiles(path)), nil
 }
 
+// ShowDocumentList show detected documents in current directory
+func ShowDocumentList(path string) error {
+	files, err := createDocumentList(path)
+	if err != nil {
+		return err
+	}
+	printer.PrintListNonSelectable(files)
+	return nil
+}
+
+// ScanWithSpinner scan selected directory with spinner
 func ScanWithSpinner(path string) ([]string, error) {
-	s := spinner.New(spinner.CharSets[11],100*time.Millisecond)
+	s := spinner.New(spinner.CharSets[11], 100*time.Millisecond)
 	s.Start()
-	data,err := CreateDocumentList(path)
+	data, err := createDocumentList(path)
 	s.Stop()
-	return data,err
+	return data, err
 }
