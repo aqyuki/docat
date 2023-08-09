@@ -3,12 +3,11 @@ package commands
 import (
 	"fmt"
 
+	"github.com/aqyuki/docat/internal/display"
 	"github.com/aqyuki/docat/internal/document"
 	"github.com/aqyuki/docat/internal/loader"
 	"github.com/aqyuki/docat/internal/scanner"
-	"github.com/aqyuki/docat/internal/tags"
 	"github.com/aqyuki/docat/internal/utils"
-	"github.com/aqyuki/docat/internal/view"
 	"github.com/spf13/cobra"
 )
 
@@ -23,7 +22,7 @@ var catCommand = &cobra.Command{
 			return err
 		}
 
-		tag, err := view.RunDocumentSelector()
+		tag, err := display.DocumentSelector()
 		if err != nil {
 			return err
 		}
@@ -33,20 +32,8 @@ var catCommand = &cobra.Command{
 			return err
 		}
 
-		var pattern *document.DocumentPat
-
-		switch tag {
-		case tags.README:
-			pattern = document.README
-		case tags.LICENSE:
-			pattern = document.LICENSE
-		case tags.CHANGELOG:
-			pattern = document.CHANGELOG
-		case tags.CONTRIBUTING:
-			pattern = document.CONTRIBUTING
-		case tags.CONTRIBUTOR:
-			pattern = document.CONTRIBUTOR
-		case tags.NON:
+		pattern := document.FetchPatternForTag(&tag)
+		if pattern == nil {
 			return nil
 		}
 
@@ -57,9 +44,12 @@ var catCommand = &cobra.Command{
 			}
 		}
 
+		// docs contains the file paths of the detected documents.
+		// If the number of file paths for a document is one, the file is previewed as is,
+		// but if there are multiple file paths, a separate file selector is displayed.
 		var path string
 		if len(docs) > 1 {
-			path, err = view.RunFileSelector(docs)
+			path, err = display.FileSelector(docs)
 			if err != nil {
 				return err
 			}
@@ -74,7 +64,7 @@ var catCommand = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		view.ViewDocument(doc)
+		display.DocumentViewport(doc)
 		return nil
 	},
 }
