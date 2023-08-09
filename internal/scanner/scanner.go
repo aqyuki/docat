@@ -4,10 +4,12 @@ import (
 	"fmt"
 	"io/fs"
 	"path/filepath"
+	"time"
 
+	"github.com/aqyuki/docat/internal/display"
 	"github.com/aqyuki/docat/internal/document"
-	"github.com/aqyuki/docat/internal/printer"
 	"github.com/aqyuki/goutil/files"
+	"github.com/briandowns/spinner"
 )
 
 // listAllFile return list of add file in root directory
@@ -62,21 +64,8 @@ CHECK_LOOP:
 	return items
 }
 
-// ShowDocumentList show detected documents in current directory
-func ShowDocumentList(path string) error {
-	exist, err := files.ExistDir(path)
-	if err != nil {
-		return nil
-	}
-	if !exist {
-		return nil
-	}
-	printer.PrintListNonSelectable(extractListItem(listAllFiles(path)))
-	return nil
-}
-
-// CreateDocumentList create detected documents in current directory
-func CreateDocumentList(path string) ([]string, error) {
+// createDocumentList create detected documents in current directory
+func createDocumentList(path string) ([]string, error) {
 	exist, err := files.ExistDir(path)
 	if err != nil {
 		return nil, err
@@ -85,4 +74,23 @@ func CreateDocumentList(path string) ([]string, error) {
 		return nil, nil
 	}
 	return extractListItem(listAllFiles(path)), nil
+}
+
+// ShowDocumentList show detected documents in current directory
+func ShowDocumentList(path string) error {
+	files, err := createDocumentList(path)
+	if err != nil {
+		return err
+	}
+	display.ShowSimpleList(files)
+	return nil
+}
+
+// ScanWithSpinner scan selected directory with spinner
+func ScanWithSpinner(path string) ([]string, error) {
+	s := spinner.New(spinner.CharSets[11], 100*time.Millisecond)
+	s.Start()
+	data, err := createDocumentList(path)
+	s.Stop()
+	return data, err
 }

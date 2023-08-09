@@ -1,11 +1,11 @@
-package printer_test
+package display_test
 
 import (
 	"bytes"
 	"os"
 	"testing"
 
-	"github.com/aqyuki/docat/internal/printer"
+	"github.com/aqyuki/docat/internal/display"
 )
 
 func PickStdOut(t *testing.T, fn func()) string {
@@ -26,7 +26,7 @@ func PickStdOut(t *testing.T, fn func()) string {
 	return s[:len(s)-1]
 }
 
-func TestPrintListNonSelectable(t *testing.T) {
+func TestShowSimpleList(t *testing.T) {
 	type args struct {
 		list []string
 	}
@@ -58,7 +58,7 @@ func TestPrintListNonSelectable(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := PickStdOut(t, func() { printer.PrintListNonSelectable(tt.args.list) })
+			got := PickStdOut(t, func() { display.ShowSimpleList(tt.args.list) })
 			if got != tt.want {
 				t.Errorf("Unexpected output returned want -> %+v got -> %+v\n", tt.want, got)
 			}
