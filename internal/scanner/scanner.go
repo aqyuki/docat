@@ -4,10 +4,12 @@ import (
 	"fmt"
 	"io/fs"
 	"path/filepath"
+	"time"
 
 	"github.com/aqyuki/docat/internal/document"
 	"github.com/aqyuki/docat/internal/printer"
 	"github.com/aqyuki/goutil/files"
+	"github.com/briandowns/spinner"
 )
 
 // listAllFile return list of add file in root directory
@@ -85,4 +87,12 @@ func CreateDocumentList(path string) ([]string, error) {
 		return nil, nil
 	}
 	return extractListItem(listAllFiles(path)), nil
+}
+
+func ScanWithSpinner(path string) ([]string, error) {
+	s := spinner.New(spinner.CharSets[11],100*time.Millisecond)
+	s.Start()
+	data,err := CreateDocumentList(path)
+	s.Stop()
+	return data,err
 }
