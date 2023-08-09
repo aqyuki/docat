@@ -19,6 +19,7 @@ var (
 		"CHANGELOG":    CHANGELOG,
 		"CONTRIBUTING": CONTRIBUTING,
 		"CONTRIBUTOR":  CONTRIBUTOR,
+		"CONTRIBUTE":   CONTRIBUTE,
 	}
 
 	README       = CreatePattern("README")
@@ -26,6 +27,7 @@ var (
 	CHANGELOG    = CreatePattern("CHANGELOG")
 	CONTRIBUTING = CreatePattern("CONTRIBUTING")
 	CONTRIBUTOR  = CreatePattern("CONTRIBUTOR")
+	CONTRIBUTE   = CreatePattern("CONTRIBUTE")
 )
 
 func (p *DocumentPat) Match(path string) bool {
