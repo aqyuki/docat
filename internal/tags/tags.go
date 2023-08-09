@@ -11,4 +11,5 @@ const (
 	CHANGELOG    DocumentType = 2
 	CONTRIBUTING DocumentType = 3
 	CONTRIBUTOR  DocumentType = 4
+	CONTRIBUTE   DocumentType = 5
 )
