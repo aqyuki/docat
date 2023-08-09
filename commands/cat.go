@@ -40,7 +40,7 @@ var catCommand = &cobra.Command{
 			return err
 		}
 
-		files, err := scanner.CreateDocumentList(targetDir)
+		files, err := scanner.ScanWithSpinner(targetDir)
 		if err != nil {
 			return err
 		}
