@@ -14,6 +14,7 @@ const (
 	CHANGELOG    = "CHANGELOG"
 	CONTRIBUTING = "CONTRIBUTING"
 	CONTRIBUTOR  = "CONTRIBUTOR"
+	CONTRIBUTE   = "CONTRIBUTE"
 )
 
 var (
@@ -24,6 +25,7 @@ var (
 		ls.NewModelItem(CHANGELOG),
 		ls.NewModelItem(CONTRIBUTING),
 		ls.NewModelItem(CONTRIBUTOR),
+		ls.NewModelItem(CONTRIBUTE),
 	}
 )
 
@@ -67,6 +69,8 @@ func DocumentSelector() (tags.DocumentType, error) {
 		return tags.CONTRIBUTING, nil
 	case CONTRIBUTOR:
 		return tags.CONTRIBUTOR, nil
+	case CONTRIBUTE:
+		return tags.CONTRIBUTE, nil
 	default:
 		return tags.NON, nil
 	}
