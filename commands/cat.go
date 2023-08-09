@@ -2,13 +2,12 @@ package commands
 
 import (
 	"fmt"
-	"os"
-	"path/filepath"
 
 	"github.com/aqyuki/docat/internal/document"
 	"github.com/aqyuki/docat/internal/loader"
 	"github.com/aqyuki/docat/internal/scanner"
 	"github.com/aqyuki/docat/internal/tags"
+	"github.com/aqyuki/docat/internal/utils"
 	"github.com/aqyuki/docat/internal/view"
 	"github.com/spf13/cobra"
 )
@@ -19,20 +18,9 @@ var catCommand = &cobra.Command{
 	Long:  "Displays the contents of the specified file. The available document formats are README, LICENSE, CHANGELOG, CONTRIBUTING, or CONTRIBUTOR. If there are multiple files of the same document format, a separate selector will be used to open a new file.",
 	RunE: func(cmd *cobra.Command, args []string) error {
 
-		if len(args) > 1 {
-			return fmt.Errorf("too many args")
-		}
-
-		targetDir, err := os.Getwd()
+		targetDir, err := utils.TargetDirectoryParser(args)
 		if err != nil {
 			return err
-		}
-		if len(args) == 1 {
-			dir, err := filepath.Abs(args[0])
-			if err != nil {
-				return err
-			}
-			targetDir = dir
 		}
 
 		tag, err := view.RunDocumentSelector()
