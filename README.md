@@ -56,3 +56,4 @@ Documents currently recognized as documents are those with the following filenam
 - CHANGELOG
 - CONTRIBUTING
 - CONTRIBUTOR
+- CONTRIBUTE
