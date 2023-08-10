@@ -1,6 +1,6 @@
 module github.com/aqyuki/docat
 
-go 1.20
+go 1.21
 
 require (
 	github.com/aqyuki/goutil v0.0.0-20230804131100-df6e4ec8f9df

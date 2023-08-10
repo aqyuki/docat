@@ -1,10 +1,17 @@
 package commands
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/spf13/cobra"
+)
+
+const (
+	IgnoreSubDirectoryFlagMsg = "Search only the root directory and do not search sub directories"
+)
+
+var (
+	IgnoreSubDirectoryFlag bool
 )
 
 var rootCmd = &cobra.Command{
@@ -12,7 +19,6 @@ var rootCmd = &cobra.Command{
 	Short: "Docat provides quick access to documents within a project.",
 	Long:  "Docat provides quick access to documents within a project.",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		fmt.Println("main command")
 		return nil
 	},
 }
@@ -25,4 +31,5 @@ func Execute() {
 }
 
 func init() {
+	rootCmd.PersistentFlags().BoolVarP(&IgnoreSubDirectoryFlag, "root", "r", false, IgnoreSubDirectoryFlagMsg)
 }
