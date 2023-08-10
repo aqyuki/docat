@@ -7,6 +7,7 @@ import (
 	"github.com/aqyuki/docat/internal/document"
 	"github.com/aqyuki/docat/internal/loader"
 	"github.com/aqyuki/docat/internal/scanner"
+	"github.com/aqyuki/docat/internal/scanner/options"
 	"github.com/aqyuki/docat/internal/utils"
 	"github.com/spf13/cobra"
 )
@@ -16,6 +17,11 @@ var catCommand = &cobra.Command{
 	Short: "Displays the contents of the selected file.",
 	Long:  "Displays the contents of the specified file. The available document formats are README, LICENSE, CHANGELOG, CONTRIBUTING, CONTRIBUTOR or CONTRIBUTE. If there are multiple files of the same document format, a separate selector will be used to open a new file.",
 	RunE: func(cmd *cobra.Command, args []string) error {
+
+		opts := options.CreateDefaultOption()
+		if IgnoreSubDirectoryFlag {
+			options.WithIgnoreSubDirectory(opts)
+		}
 
 		targetDir, err := utils.TargetDirectoryParser(args)
 		if err != nil {
@@ -27,7 +33,7 @@ var catCommand = &cobra.Command{
 			return err
 		}
 
-		files, err := scanner.ScanWithSpinner(targetDir)
+		files, err := scanner.ScanWithSpinner(targetDir, opts)
 		if err != nil {
 			return err
 		}
