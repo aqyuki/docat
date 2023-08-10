@@ -3,16 +3,18 @@ package scanner
 import (
 	"fmt"
 	"io/fs"
+	"os"
 	"path/filepath"
 	"time"
 
 	"github.com/aqyuki/docat/internal/display"
 	"github.com/aqyuki/docat/internal/document"
+	"github.com/aqyuki/docat/internal/scanner/options"
 	"github.com/aqyuki/goutil/files"
 	"github.com/briandowns/spinner"
 )
 
-// listAllFile return list of add file in root directory
+// listAllFile return list of add file in root directory and sub directory
 func listAllFiles(root string) []string {
 	list := make([]string, 0)
 
@@ -28,6 +30,33 @@ func listAllFiles(root string) []string {
 	if err != nil {
 		fmt.Printf("%+v", err)
 		return nil
+	}
+
+	return list
+}
+
+// listRootFiles return list of add file in root directory
+func listRootFiles(root string) []string {
+	list := make([]string, 0)
+
+	files, err := os.ReadDir(root)
+	if err != nil {
+		fmt.Printf("%+v", err)
+		return nil
+	}
+
+CHECK:
+	for _, file := range files {
+		if file.IsDir() {
+			continue CHECK
+		}
+
+		info, err := file.Info()
+		if err != nil {
+			continue CHECK
+		}
+
+		list = append(list, info.Name())
 	}
 
 	return list
@@ -69,7 +98,7 @@ CHECK_LOOP:
 }
 
 // createDocumentList create detected documents in current directory
-func createDocumentList(path string) ([]string, error) {
+func createDocumentList(path string, opts *options.ScannerOption) ([]string, error) {
 	exist, err := files.ExistDir(path)
 	if err != nil {
 		return nil, err
@@ -77,12 +106,18 @@ func createDocumentList(path string) ([]string, error) {
 	if !exist {
 		return nil, nil
 	}
+
+	// Panic may occur if (opts != nil) and (opts.IgnoreSubDirectory) are swapped (panic: runtime error: invalid memory address or nil pointer dereference)
+	if opts != nil && opts.IgnoreSubDirectory {
+		return extractListItem(listRootFiles(path)), nil
+	}
+
 	return extractListItem(listAllFiles(path)), nil
 }
 
 // ShowDocumentList show detected documents in current directory
-func ShowDocumentList(path string) error {
-	files, err := createDocumentList(path)
+func ShowDocumentList(path string, opts *options.ScannerOption) error {
+	files, err := createDocumentList(path, opts)
 	if err != nil {
 		return err
 	}
@@ -91,10 +126,10 @@ func ShowDocumentList(path string) error {
 }
 
 // ScanWithSpinner scan selected directory with spinner
-func ScanWithSpinner(path string) ([]string, error) {
+func ScanWithSpinner(path string, opts *options.ScannerOption) ([]string, error) {
 	s := spinner.New(spinner.CharSets[11], 100*time.Millisecond)
 	s.Start()
-	data, err := createDocumentList(path)
+	data, err := createDocumentList(path, opts)
 	s.Stop()
 	return data, err
 }
