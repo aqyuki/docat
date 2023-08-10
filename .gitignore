@@ -22,3 +22,6 @@ go.work
 
 # Editor config directory
 /.vscode/
+
+# binaries
+dist/
