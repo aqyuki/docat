@@ -14,7 +14,6 @@ builds:
       - darwin
     ldflags:
       - -s -w
-      - -X github.com/aqyuki/docat/commands.Version={{.Version}}
 
 archives:
   - format: tar.gz
