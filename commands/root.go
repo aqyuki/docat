@@ -19,6 +19,7 @@ var rootCmd = &cobra.Command{
 	Short: "Docat provides quick access to documents within a project.",
 	Long:  "Docat provides quick access to documents within a project.",
 	RunE: func(cmd *cobra.Command, args []string) error {
+		cmd.Help()
 		return nil
 	},
 }
@@ -26,7 +27,7 @@ var rootCmd = &cobra.Command{
 func Execute() {
 	err := rootCmd.Execute()
 	if err != nil {
-		os.Exit(1)
+		os.Exit(-1)
 	}
 }
 
